@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import bg from '../assets/bg.webp'
+import bg from '../assets/day.gif'
 import {WiStrongWind, WiHumidity, WiSunrise, WiSunset} from 'react-icons/wi'
 import {FiSettings, FiEdit} from 'react-icons/fi'
 import { httpService } from '../core/http-service'
@@ -120,7 +120,7 @@ function Weather({setBackground, background}) {
           <h3 className='text-2xl'>{weatherMain}</h3>
         </div>
         <div className='flex justify-center'>
-          <img src={`/src/assets/${icon}.png`} alt="icon" />
+          <img src={`/weatherApp/src/assets/${icon}.png`} alt="icon" />
         </div>
       </div>
       <div className='mt-5 flex justify-center'>
@@ -137,7 +137,7 @@ function Weather({setBackground, background}) {
         </h5>
         {/* <h5 className='text-md'>update every 5 minutes</h5> */}
       </div>
-      <div className={`grid-cols-12 m-2 p-2 rounded ${background === bg ? 'bg-blue-600' : 'bg-gray-500'}`}>
+      <div className={`grid-cols-12 m-2 p-2 rounded ${background === bg ? 'bg-blue-600' : 'bg-gray-500'} bg-opacity-60`}>
         <div className="border-b-2 flex justify-start">
           <h1>{weaterDesc}</h1>
         </div>
@@ -146,7 +146,7 @@ function Weather({setBackground, background}) {
             threeHours.map((item) => (
               <div className='me-1' key={item.dt}>
                 <p className='justify-center'>{timeStammConverter(item.dt, timezone)}</p>
-                <img src={`/src/assets/${item.icon}.png`} alt='icon' width='60rem'/>
+                <img src={`/weatherApp/src/assets/${item.icon}.png`} alt='icon' width='60rem'/>
                 <p className='justify-center'>{Math.round(item.temp)}°</p>
                 <div className='flex mt-auto mb-auto justify-center'>
                   <WiHumidity size='1.4rem'/>
@@ -158,7 +158,7 @@ function Weather({setBackground, background}) {
         </div>
       </div>
       <div className="grid grid-cols-12 mt-8">
-        <div className={`rounded col-start-2 col-end-7 m-1 p-2 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'}`}>
+        <div className={`rounded col-start-2 col-end-7 m-1 p-2 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'} bg-opacity-60`}>
           <div className="flex justify-center">
             {/* <img src={humidityLogo} alt="humidityLogo" width='30rem'/> */}
             <WiHumidity size='3rem'/>
@@ -166,7 +166,7 @@ function Weather({setBackground, background}) {
           <h1>Humidity</h1>
           <h1 className='ms-2'>{humidity} %</h1>
         </div>
-        <div className={`rounded col-start-7 col-end-12 m-1 p-2 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'}`}>
+        <div className={`rounded col-start-7 col-end-12 m-1 p-2 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'} bg-opacity-60`}>
           <div className="flex justify-center">
             <WiStrongWind size='3rem' />
           </div>
@@ -178,14 +178,14 @@ function Weather({setBackground, background}) {
         </div>
       </div>
       <div className="grid grid-cols-12 mt-1">
-        <div className={`rounded col-start-2 col-end-7 m-1 p-2 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'}`}>
+        <div className={`rounded col-start-2 col-end-7 m-1 p-2 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'} bg-opacity-60`}>
           <div className="flex justify-center">
             <WiSunrise size='3rem' />
           </div>
           <h2>Sunrise</h2>
           <h2>{timeStammConverter(sunrise, timezone)}</h2>
         </div>
-        <div className={`rounded col-start-7 col-end-12 m-1 p-2 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'}`}>
+        <div className={`rounded col-start-7 col-end-12 m-1 p-2 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'} bg-opacity-60`}>
           <div className="flex justify-center">
             <WiSunset size='3rem' />
           </div>

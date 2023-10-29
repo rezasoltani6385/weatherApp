@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
-import bgNight from '../assets/bg-night.webp'
-import bg from '../assets/bg.webp'
+// import bgNight from '../assets/bg-night.webp'
+import bgNight from '../assets/night.gif'
+import bg from '../assets/day.gif'
+// import bg from '../assets/bg.webp'
 
 
 
 const Clock = ({setBackground, sunset, timezone, city, background}) =>{
     const offset = new Date().getTimezoneOffset() * 60 * 1000
 
-    // console.log('offset', offset)
     let date = new Date(Date.parse(new Date) + offset + (timezone *1000))
 
-    // if (city !== 'Tehran') {
-    //     date = new Date(Date.parse(new Date) + offset + (timezone *1000))
-    // }
-
-  const [ctime,setTime] = useState()
   const[hour, setHour]= useState()
   const[minute, setMinute] = useState()
   const[second, setSecond] = useState()
