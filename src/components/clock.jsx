@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-// import bgNight from '../assets/bg-night.webp'
 import bgNight from '../assets/night.gif'
 import bg from '../assets/day.gif'
-// import bg from '../assets/bg.webp'
 
 
 
@@ -17,7 +15,6 @@ const Clock = ({setBackground, sunset, timezone, city, background}) =>{
 
 useEffect(()=>{
     const myClock = setInterval(function(){
-        // city !== 'Tehran' ? date = new Date(Date.parse(new Date) + offset + (timezone *1000)) :  date = new Date(Date.parse(new Date))
         date = new Date(Date.parse(new Date) + offset + (timezone *1000))
         date.getHours() < 10 ? setHour(`0${date.getHours()}`) : setHour(date.getHours())
         date.getMinutes() < 10 ? setMinute(`0${date.getMinutes()}`) : setMinute(date.getMinutes())

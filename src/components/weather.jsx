@@ -88,7 +88,6 @@ function Weather({setBackground, background}) {
   return (
     <div className='bg-local bg-cover' >
       <header className="pt-6 pe-12 flex justify-end">
-        {/* <h1 className='text-2xl font-bold'>Weather App</h1> */}
         <div className="my-auto" role='button' onClick={()=> setModal(true)}>
           <FiSettings size='1.5rem'/>
         </div>
@@ -119,7 +118,6 @@ function Weather({setBackground, background}) {
           <span className='me-2 ms-3 justify-start'>Last update:</span>
           <span>{timeStammConverter(lastUpdate, timezone)}</span>
         </h5>
-        {/* <h5 className='text-md'>update every 5 minutes</h5> */}
       </div>
       <div className={`grid-cols-12 m-2 p-2 rounded ${background === bg ? 'bg-blue-600' : 'bg-gray-500'} bg-opacity-60`}>
         <div className="border-b-2 flex justify-start">
@@ -144,7 +142,6 @@ function Weather({setBackground, background}) {
       <div className="grid grid-cols-12 mt-8">
         <div className={`rounded col-start-2 col-end-7 m-1 p-2 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'} bg-opacity-60`}>
           <div className="flex justify-center">
-            {/* <img src={humidityLogo} alt="humidityLogo" width='30rem'/> */}
             <WiHumidity size='3rem'/>
           </div>
           <h1>Humidity</h1>

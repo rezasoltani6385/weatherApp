@@ -1,4 +1,3 @@
-// import bg from './assets/bg.webp'
 import bg from './assets/day.gif'
 import Weather from './components/weather'
 import { useState } from 'react'
