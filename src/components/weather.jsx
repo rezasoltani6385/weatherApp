@@ -8,7 +8,6 @@ import Modal from './modal'
 import ClockComponent from './clock'
 
 function Weather({setBackground, background}) {
-  // const [coord, setCoord] = useState({lon: "0", lat: "0"})
   const [city, setCity] = useState('Tehran')
   const [temp, setTemp] = useState('')
   const [lastUpdate, setLastUpdate] = useState()
@@ -28,33 +27,12 @@ function Weather({setBackground, background}) {
   const [modal, setModal] = useState(false)
   const [message, setMessage] = useState('You can select any city you want and also change the unit.')
 
-  // useEffect(()=>{
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(success, error);
-  //   } else {
-  //     console.log("Geolocation not supported");
-  //   }
-
-  //   function success(position) {
-  //     let latitude = position.coords.latitude;
-  //     let longitude = position.coords.longitude;
-  //     setCoord({lon:position.coords.longitude, lat: position.coords.latitude})
-  //     console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-  //     // return latitude, longitude
-  //   }
-
-  //   function error() {
-  //     console.log("Unable to retrieve your location");
-  //   }
-
-  // }, [])
 
 
   useEffect(()=>{
     const getCurrentData = async ()=> {
-      // const response = await httpService.get('/weather', {params: {lat: coord.lat, lon: coord.lon}})
       try{
-        const response = await httpService.get('/weather', {params: {q: city}})
+        const response = await httpService.get('/weather', {params: {q: city, units: unit}})
         if (response.data.cod === 200){
           setCity(response.data.name)
           setTemp(response.data.main.temp)
@@ -84,16 +62,22 @@ function Weather({setBackground, background}) {
     }
 
     const get3hrsData = async ()=> {
-      const response = await httpService.get('/forecast', { params: { q: city }})
+      try{
+        const response = await httpService.get('/forecast', { params: { q: city, units: unit}})
+  
+        const extractedData = response.data.list.map(item => ({
+          dt: item.dt,
+          temp: item.main.temp,
+          humidity: item.main.humidity,
+          icon: item.weather[0].icon
+        }));
+  
+        setThreeHours(extractedData)
 
-      const extractedData = response.data.list.map(item => ({
-        dt: item.dt,
-        temp: item.main.temp,
-        humidity: item.main.humidity,
-        icon: item.weather[0].icon
-      }));
-
-      setThreeHours(extractedData)
+      }
+      catch(error){
+        console.log('error', error)
+      }
     }
 
     getCurrentData()

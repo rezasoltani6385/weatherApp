@@ -13,7 +13,7 @@ httpService.interceptors.request.use((config) => {
     config.params = {
       ...config.params, // Preserve existing parameters
       appid: apiKey,
-      units: 'Metric',
+      // units: 'Metric',
     };
     return config;
   });
