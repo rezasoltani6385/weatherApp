@@ -1,43 +1,56 @@
 import { useEffect, useState } from "react";
-import bgNight from '../assets/night.gif'
-import bg from '../assets/day.gif'
 
 
 
-const Clock = ({setBackground, sunset, timezone, city, background}) =>{
-    const offset = new Date().getTimezoneOffset() * 60 * 1000
+const Clock = ({timezone, fetched}) =>{
+  const offset = new Date().getTimezoneOffset() * 60 * 1000
 
-    let date = new Date(Date.parse(new Date) + offset + (timezone *1000))
+  let date = new Date(Date.parse(new Date) + offset + (timezone *1000))
 
-  const[hour, setHour]= useState()
-  const[minute, setMinute] = useState()
-  const[second, setSecond] = useState()
+  const [clock, setClock] = useState({
+    hour: date.getHours() < 10 ? `0${date.getHours()}` : date.getHours(),
+    minute: date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes(),
+    second: date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds(),
+  })
+  const [fulldate, setFulldate] = useState({
+    year: date.getFullYear(),
+    month: date.toLocaleString('default', { month: 'long' }),
+    date: date.getDate(),
+    day: date.toLocaleString('default', { weekday: 'short' }),
+  })
 
-useEffect(()=>{
-    const myClock = setInterval(function(){
+  // console.log(timezone)
+
+  useEffect(()=>{
+    const myclock = setInterval(function(){
         date = new Date(Date.parse(new Date) + offset + (timezone *1000))
-        date.getHours() < 10 ? setHour(`0${date.getHours()}`) : setHour(date.getHours())
-        date.getMinutes() < 10 ? setMinute(`0${date.getMinutes()}`) : setMinute(date.getMinutes())
-        date.getSeconds() < 10 ? setSecond(`0${date.getSeconds()}`) : setSecond(date.getSeconds())
-    }, 1000)
+        setFulldate({
+          year: date.getFullYear(),
+          month: date.toLocaleString('default', { month: 'long' }),
+          date: date.getDate(),
+          day: date.toLocaleString('default', { weekday: 'short' }),
+        })
+        setClock ({
+          hour: date.getHours() < 10 ? `0${date.getHours()}` : date.getHours(),
+          minute: date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes(),
+          second: date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds(),
+        })
+      }, 1000)
 
-    return () => clearInterval(myClock)
+    return () => clearInterval(myclock)
 
-    },[timezone])
+  },[date])
 
-  if (date > (sunset * 1000)){
-    setBackground(bgNight)
-  }
-  else{
-    setBackground(bg)
-  }
 
   return (
-    <div className={`bg-opacity-60 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'} w-60 mx-auto rounded-md`}>
-        {hour ?
-            <h1 className="mt-8 text-3xl p-8">{hour}:{minute}:{second}</h1>
+    <div className={`bg-opacity-60 w-60 mx-auto rounded-md shadow-3xl`}>
+        {fetched ?
+          <div className="mt-8 p-3">
+            <h1 className=" text-3xl text-center">{clock.hour}:{clock.minute}:{clock.second}</h1>
+            <h1 className="text-lg text-center">{fulldate.day}, {fulldate.date} {fulldate.month} {fulldate.year}</h1>
+          </div>
         :
-            <div className={`bg-opacity-60 ${background === bg ? 'bg-blue-600' : 'bg-gray-500'} w-60 mx-auto rounded-md mt-8 text-md p-8`}>
+            <div className={`bg-opacity-60 w-60 mx-auto rounded-md mt-8 text-md p-8`}>
                 Processing...
             </div>
         }

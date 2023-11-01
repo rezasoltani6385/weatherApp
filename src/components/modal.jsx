@@ -2,7 +2,6 @@ import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 export default function Modal({modal, setModal, setCity, setUnit, message}) {
-  const [open, setOpen] = useState(true)
 
   const cancelButtonRef = useRef(null)
 

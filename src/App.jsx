@@ -1,15 +1,33 @@
-import bg from './assets/day.gif'
+import bg from './assets/background.webp'
 import Weather from './components/weather'
 import { useState } from 'react'
 
 function App() {
-  const [background, setBackground] = useState(bg)
+  const [background, setBackground] = useState()
+  const [geolocation, setGeolocation] = useState({lat: '', lon: ''})
 
-  return (
-    <div className='text-white text-center min-h-screen bg-local bg-cover' style={{backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center',  maxWidth: '450PX', margin: '0 auto',}}>
-      <Weather setBackground={setBackground} background={background}/>
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else {
+    console.log("Geolocation not supported");
+  }
+  
+  function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+  }
+  
+  function error() {
+    console.log("Unable to retrieve your location");
+  }
+
+  return(
+    <div className={`min-h-screen ${background}`} style={{backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+      <Weather setBackground={setBackground}/>
     </div>
   )
+
 }
 
 export default App
